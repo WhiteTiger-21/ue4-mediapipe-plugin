@@ -88,6 +88,9 @@ public:
 	UFUNCTION(Category="MediaPipe", BlueprintCallable)
 	void DrawDebugLandmarks(int ObjectId, const FTransform& Transform, float PrimitiveScale = 1.0f, FLinearColor Color = FLinearColor(0, 1, 0, 1));
 
+	UFUNCTION(Category = "MediaPipe", BlueprintCallable)
+	void DrawDebugLandmark(int ObjectId,int VertexId, const FTransform& Transform, float PrimitiveScale = 1.0f, FLinearColor Color = FLinearColor(0, 1, 0, 1));
+
 protected:
 	void OnUmpPacket(class IUmpObserver* Observer) override;
 

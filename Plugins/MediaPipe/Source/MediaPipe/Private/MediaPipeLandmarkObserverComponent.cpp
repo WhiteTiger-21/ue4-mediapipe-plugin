@@ -170,3 +170,25 @@ void UMediaPipeLandmarkObserverComponent::DrawDebugLandmarks(int ObjectId, const
 
 	#endif
 }
+
+void UMediaPipeLandmarkObserverComponent::DrawDebugLandmark(int ObjectId, int VertexId, const FTransform& Transform, float PrimitiveScale, FLinearColor Color)
+{
+#if ENABLE_DRAW_DEBUG
+
+	if (ObjectId >= 0 && ObjectId < NumDetections)
+	{
+		auto* World = GetWorld();
+		const auto& List = MultiLandmarks[ObjectId];
+		const auto RawColor = Color.ToFColor(false);
+
+		const auto& L = List[VertexId];
+		if ((L.Visibility > MinVisibility) && (L.Presence > MinPresence))
+		{
+			auto Pos = Transform.TransformPosition(L.Pos);
+			DrawDebugPoint(World, Pos, PrimitiveScale, RawColor);
+			//DrawDebugCoordinateSystem(World, Pos, FRotator::ZeroRotator, PrimitiveScale);
+		}
+	}
+
+#endif
+}
